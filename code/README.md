@@ -1,4 +1,4 @@
-# Arcadia
+# EcoClean Home
 
 ## LAMP stack built with Docker Compose
 
