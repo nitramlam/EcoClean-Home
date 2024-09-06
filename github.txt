@@ -1,0 +1,21 @@
+git clone : Cloner un dépôt existant depuis GitHub sur ton ordinateur.
+
+git status: Vérifier l'état des fichiers dans ton dépôt : voir quels fichiers ont été modifiés, ajoutés, ou supprimés.
+
+git add . :  Ajouter tous les fichiers modifiés ou nouveaux.
+
+git commit -m "Message décrivant les modifications" : Enregistrer les modifications dans l'historique du projet. Un commit doit toujours être accompagné d'un message descriptif.
+
+git push origin nom_de_la_branche: Envoyer les commits locaux vers le dépôt distant (GitHub).
+
+git pull origin nom_de_la_branche :  Récupérer les modifications du dépôt distant (GitHub) et les intégrer dans ta branche locale.
+
+git checkout -b nom_de_la_branche: Créer et basculer sur une nouvelle branche.
+
+git checkout nom_de_la_branche : Changer de branche.
+
+git merge nom_de_la_branche : Fusionner une branche dans la branche active actuelle.
+
+git log : Afficher l'historique des commits de la branche active.
+
+git branch : Pour lister toutes les branches locales :
