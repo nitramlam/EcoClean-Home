@@ -6,24 +6,33 @@ services:
     container_name: mysql-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: home_cleaning_recipes  # La base de données
+      MYSQL_DATABASE: home_cleaning_recipes
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3307:3306"  # Port externe 3307 pour éviter les conflits sur 3306
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./db-init:/docker-entrypoint-initdb.d/  # Le script SQL de l'initialisation
+      - ./db-init:/docker-entrypoint-initdb.d/  # Pour exécuter ton fichier ini.sql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
-    platform: linux/amd64  # Forcer l'émulation pour l'image amd64
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
       - "8080:80"
 
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Utilise le Dockerfile personnalisé
+    container_name: php-web
+    ports:
+      - "80:80"  # Expose le port 80 pour localhost
+    volumes:
+      - ./code:/var/www/html  # Monte le dossier 'code' dans le conteneur pour Apache
+
 volumes:
-  db_data:
+  db_data:  # Ceci définit le volume pour MySQL
