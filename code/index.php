@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un utilisateur</title>
-</head>
-<body>
-    <h1>Ajouter un utilisateur</h1>
-    <form action="process.php" method="POST">
-        <label for="name">Nom:</label>
-        <input type="text" id="name" name="name" required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <input type="submit" value="Ajouter">
-    </form>
-</body>
-</html>
+<?php
+// Connexion à la base de données
+include 'db.php';
+
+// Récupérer les catégories
+$sql = "SELECT * FROM categorie";
+$result = $conn->query($sql);
+
+echo "<h1>Choisissez une catégorie :</h1>";
+while ($row = $result->fetch_assoc()) {
+    echo "<div><a href='categorie.php?categorie_id=" . $row['categorie_id'] . "'>" . $row['nom'] . "</a></div>";
+}
+
+$conn->close();
+?>
