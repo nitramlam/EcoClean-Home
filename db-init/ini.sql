@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS recette (
     recette_id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    image_path VARCHAR(255),
     categorie_id INT,
     FOREIGN KEY (categorie_id) REFERENCES categorie(categorie_id) ON DELETE CASCADE
 );
@@ -38,16 +37,3 @@ CREATE TABLE IF NOT EXISTS recette_ingredient (
 -- Ajouter des catégories de test
 INSERT INTO categorie (nom) VALUES ('Cuisine'), ('Salle de bain'), ('WC');
 
--- Ajouter des ingrédients de test
-INSERT INTO ingredient (nom, description) VALUES 
-('Vinaigre blanc', 'Un excellent nettoyant naturel.'),
-('Bicarbonate de soude', 'Utilisé pour dégraisser et désodoriser.');
-
--- Ajouter une recette de test
-INSERT INTO recette (nom, description, image_path, categorie_id) VALUES 
-('Nettoyant multi-usages', 'Un nettoyant maison à base de vinaigre et bicarbonate.', 'images/nettoyant.png', 1);
-
--- Associer les ingrédients à la recette
-INSERT INTO recette_ingredient (recette_id, ingredient_id, quantite, unite_mesure) VALUES 
-(1, 1, 40, 'ml'),  -- 500ml de vinaigre blanc
-(1, 2, 50, 'g');     -- 50g de bicarbonate de soude
