@@ -1,15 +1,20 @@
 <?php
-// Connexion à la base de données
-include 'db.php';
-
-// Récupérer les catégories
-$sql = "SELECT * FROM categorie";
-$result = $conn->query($sql);
-
-echo "<h1>Choisissez une catégorie :</h1>";
-while ($row = $result->fetch_assoc()) {
-    echo "<div><a href='categorie.php?categorie_id=" . $row['categorie_id'] . "'>" . $row['nom'] . "</a></div>";
-}
-
-$conn->close();
+// Inclure le header
+include 'header.php';
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoClean-Home - Accueil</title>
+    <link rel="stylesheet" href="style.css"> <!-- Lien vers le CSS si nécessaire -->
+</head>
+<body>
+    <h1>Bienvenue sur EcoClean-Home</h1>
+    <p>Découvrez nos recettes maison pour des produits ménagers écologiques et économiques !</p>
+    
+    <!-- Autres contenus spécifiques à la page d'accueil -->
+</body>
+</html>

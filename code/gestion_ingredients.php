@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erreur lors de la modification : " . $conn->error;
         }
     } else {
-        // Sinon, on ajoute un nouvel ingrédient
+     
         $sql = "INSERT INTO ingredient (nom, description) VALUES ('$nom', '$description')";
         if ($conn->query($sql) === TRUE) {
             echo "Ingrédient ajouté avec succès !";
@@ -77,7 +77,7 @@ $result = $conn->query($sql);
             <td><?php echo $row['nom']; ?></td>
             <td><?php echo $row['description']; ?></td>
             <td>
-                <!-- Bouton pour modifier -->
+               
                 <button onclick="remplirFormulaire(<?php echo $row['ingredient_id']; ?>, '<?php echo $row['nom']; ?>', '<?php echo $row['description']; ?>')">Modifier</button>
 
                 <!-- Lien pour supprimer -->
@@ -88,7 +88,7 @@ $result = $conn->query($sql);
     </table>
 
     <script>
-        // Fonction pour remplir le formulaire de modification
+       
         function remplirFormulaire(ingredient_id, nom, description) {
             document.querySelector('input[name="ingredient_id"]').value = ingredient_id;
             document.querySelector('input[name="nom"]').value = nom;

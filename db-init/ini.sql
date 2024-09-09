@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS home_cleaning_recipes CHARACTER SET utf8mb4 COLLAT
 
 USE home_cleaning_recipes;
 
--- Table des catégories
+-- Table des catégories 
 CREATE TABLE IF NOT EXISTS categorie (
     categorie_id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL
@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS recette (
     recette_id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
+    etapes TEXT NOT NULL,  
     categorie_id INT,
     FOREIGN KEY (categorie_id) REFERENCES categorie(categorie_id) ON DELETE CASCADE
 );
@@ -24,7 +25,7 @@ CREATE TABLE IF NOT EXISTS ingredient (
     description TEXT
 );
 
--- Table de relation entre recettes et ingrédients (quantités)
+-- Table de relation entre recettes et ingrédients 
 CREATE TABLE IF NOT EXISTS recette_ingredient (
     recette_id INT,
     ingredient_id INT,
