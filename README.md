@@ -30,8 +30,8 @@ docker compose exec webserver bash
 ## load database
 
 ```shell
-docker compose down -v
-rm -rf ./data/mysql/*
+docker compose down 
+docker volume rm ecoclean-home_db_data
 docker compose up -d --build
 ```
 
