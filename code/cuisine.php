@@ -1,10 +1,10 @@
 <?php
-// Inclure la connexion à la base de données et le header
-include 'db.php';
 include 'header.php';
 
-// Récupérer les recettes de la catégorie "Cuisine"
-$sql_recettes = "SELECT * FROM recette WHERE categorie_id = 1"; // On suppose que '1' est l'ID pour Cuisine
+$categorie_id = 1;
+$categorie_titre = "Cuisine";
+
+$sql_recettes = "SELECT * FROM recette WHERE categorie_id = $categorie_id";
 $result_recettes = $conn->query($sql_recettes);
 ?>
 
@@ -14,28 +14,27 @@ $result_recettes = $conn->query($sql_recettes);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recettes pour la Cuisine</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cuisine.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Produits Maison pour la Cuisine</h1>
-        <p>Découvrez nos recettes pour des produits écologiques et naturels à utiliser dans votre cuisine.</p>
+    <div class="recipes-container">
+        <h1 class="recipes-title">Produits Maison pour la Cuisine</h1>
+        <p class="recipes-description">Découvrez nos recettes pour des produits écologiques et naturels à utiliser dans votre cuisine.</p>
         
-        <h2>Liste des recettes disponibles :</h2>
+        <h2 class="recipes-list-title">Liste des recettes disponibles :</h2>
         <?php if ($result_recettes->num_rows > 0) { ?>
-            <ul>
+            <ul class="recipes-list">
                 <?php while ($row = $result_recettes->fetch_assoc()) { ?>
-                    <li>
-                        <a href="recette.php?id=<?php echo $row['recette_id']; ?>">
+                    <li class="recipes-list-item">
+                        <a href="recette.php?id=<?php echo $row['recette_id']; ?>" class="recipes-link">
                             <?php echo $row['nom']; ?>
                         </a>
                     </li>
                 <?php } ?>
             </ul>
         <?php } else { ?>
-            <p>Aucune recette disponible pour la cuisine.</p>
+            <p class="recipes-empty">Aucune recette disponible pour la cuisine.</p>
         <?php } ?>
-
     </div>
     <?php $conn->close(); ?>
 </body>

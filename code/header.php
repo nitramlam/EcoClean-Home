@@ -1,5 +1,4 @@
 <?php
-
 include 'db.php';
 ?>
 
@@ -8,19 +7,20 @@ include 'db.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoClean</title>
     <link rel="stylesheet" href="header.css">
 </head>
 <body>
     <header>
-        <div class="site-title">
+        <div class="site-logo">
             <a href="index.php" style="color: white; text-decoration: none;">EcoClean-Home</a> 
         </div>
-        <nav>
-            <ul>
-                <li><a href="cuisine.php">Cuisine</a></li> 
-                <li><a href="sdb.php">Salle de bain</a></li> 
-                <li><a href="wc.php">WC</a></li> 
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="cuisine.php">Cuisine</a></li> 
+                <li class="nav-item"><a href="sdb.php">Salle de bain</a></li> 
+                <li class="nav-item"><a href="wc.php">WC</a></li> 
+                <li class="nav-item"><a href="gestion_ingredients.php">Ajouter ingrédient</a></li> 
+                <li class="nav-item"><a href="gestion_recettes.php">Ajouter recette</a></li> 
             </ul>
         </nav>
     </header>

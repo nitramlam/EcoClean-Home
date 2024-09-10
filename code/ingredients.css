@@ -1,60 +1,111 @@
+/* Style général */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-.container {
+.ingredients-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.ingredients-title {
     text-align: center;
-    color: #333;
-    margin-bottom: 40px;
+    color: #2c3e50;
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 
-ul {
+.ingredients-list {
     list-style: none;
     padding: 0;
 }
 
-ul li {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-ul li strong {
+.ingredients-list-item {
     font-size: 18px;
-    color: #333;
+    margin: 20px 0;
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
-ul li p {
+.ingredients-list-item:hover {
+    background-color: #e1e1e1;
+}
+
+.ingredient-name {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.ingredient-description {
     font-size: 16px;
-    color: #666;
-    margin-top: 8px;
+    margin: 10px 0;
 }
 
+/* Recettes contenant l'ingrédient */
+.ingredient-recipes-title {
+    font-size: 20px;
+    color: #3498db;
+    margin-top: 15px;
+}
+
+.ingredient-recipes-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ingredient-recipes-item {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.ingredient-recipe-link {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.ingredient-recipe-link:hover {
+    text-decoration: underline;
+}
+
+.ingredient-no-recipes {
+    color: #e74c3c;
+    font-size: 14px;
+}
+
+/* Message d'absence d'ingrédients */
+.ingredients-empty {
+    text-align: center;
+    font-size: 18px;
+    color: #e74c3c;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
+    .ingredients-title {
+        font-size: 28px;
     }
 
-    ul li {
-        padding: 10px;
-    }
-
-    ul li strong {
+    .ingredients-list-item {
         font-size: 16px;
+        padding: 15px 10px;
     }
 
-    ul li p {
+    .ingredient-recipes-title {
+        font-size: 18px;
+    }
+
+    .ingredient-recipes-item {
         font-size: 14px;
     }
 }

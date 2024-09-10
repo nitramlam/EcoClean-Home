@@ -1,5 +1,9 @@
 <?php
-include 'db.php';
+
+include 'header.php';
+
+// Variable pour stocker les messages
+$message = '';
 
 // Ajouter ou modifier un ingrédient
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -11,17 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ingredient_id = $_POST['ingredient_id'];
         $sql = "UPDATE ingredient SET nom = '$nom', description = '$description' WHERE ingredient_id = $ingredient_id";
         if ($conn->query($sql) === TRUE) {
-            echo "Ingrédient modifié avec succès !";
+            $message = "Ingrédient modifié avec succès !";
         } else {
-            echo "Erreur lors de la modification : " . $conn->error;
+            $message = "Erreur lors de la modification : " . $conn->error;
         }
     } else {
-     
+        // Ajouter un nouvel ingrédient
         $sql = "INSERT INTO ingredient (nom, description) VALUES ('$nom', '$description')";
         if ($conn->query($sql) === TRUE) {
-            echo "Ingrédient ajouté avec succès !";
+            $message = "Ingrédient ajouté avec succès !";
         } else {
-            echo "Erreur lors de l'ajout : " . $conn->error;
+            $message = "Erreur lors de l'ajout : " . $conn->error;
         }
     }
 }
@@ -31,9 +35,9 @@ if (isset($_GET['supprimer'])) {
     $ingredient_id = $_GET['supprimer'];
     $sql = "DELETE FROM ingredient WHERE ingredient_id = $ingredient_id";
     if ($conn->query($sql) === TRUE) {
-        echo "Ingrédient supprimé avec succès !";
+        $message = "Ingrédient supprimé avec succès !";
     } else {
-        echo "Erreur lors de la suppression : " . $conn->error;
+        $message = "Erreur lors de la suppression : " . $conn->error;
     }
 }
 
@@ -48,9 +52,21 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des ingrédients</title>
+    <link rel="stylesheet" href="gestion_ingredients.css">
 </head>
 <body>
     <h1>Ajouter ou modifier un ingrédient</h1>
+
+    <?php if (!empty($message)) { ?>
+        <div class="message">
+            <?php echo $message; ?>
+        </div>
+        <script>
+            setTimeout(function() {
+                document.querySelector('.message').style.display = 'none';
+            }, 5000); // Cache le message après 5 secondes
+        </script>
+    <?php } ?>
 
     <form action="gestion_ingredients.php" method="POST">
         <input type="hidden" name="ingredient_id" value="">
@@ -77,7 +93,6 @@ $result = $conn->query($sql);
             <td><?php echo $row['nom']; ?></td>
             <td><?php echo $row['description']; ?></td>
             <td>
-               
                 <button onclick="remplirFormulaire(<?php echo $row['ingredient_id']; ?>, '<?php echo $row['nom']; ?>', '<?php echo $row['description']; ?>')">Modifier</button>
 
                 <!-- Lien pour supprimer -->
@@ -88,7 +103,6 @@ $result = $conn->query($sql);
     </table>
 
     <script>
-       
         function remplirFormulaire(ingredient_id, nom, description) {
             document.querySelector('input[name="ingredient_id"]').value = ingredient_id;
             document.querySelector('input[name="nom"]').value = nom;

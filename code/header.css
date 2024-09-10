@@ -8,13 +8,13 @@ header {
     color: white;
 }
 
-header .site-title {
+header .site-logo {  /* Changement de site-title à site-logo */
     font-size: 32px;
     font-weight: bold;
     margin-right: 50px;
 }
 
-header nav ul {
+header .main-nav ul.nav-list {  /* Changement pour refléter la nouvelle structure */
     list-style: none;
     display: flex;
     gap: 20px;
@@ -22,33 +22,34 @@ header nav ul {
     margin: 0;
 }
 
-header nav ul li a {
+header .main-nav ul.nav-list li.nav-item a { /* Changement pour les classes nav-list et nav-item */
     color: white;
     text-decoration: none;
     font-size: 18px;
 }
 
-header nav ul li a:hover {
+header .main-nav ul.nav-list li.nav-item a:hover {  /* Application du hover */
     text-decoration: underline;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
         text-align: center;
     }
 
-    header .site-title {
+    header .site-logo {  /* Adaptation responsive pour la classe renommée */
         margin-right: 0;
         margin-bottom: 10px;
     }
 
-    header nav ul {
+    header .main-nav ul.nav-list { /* Ajustement pour les petites résolutions */
         flex-direction: column;
         gap: 10px;
     }
 
-    header nav ul li a {
+    header .main-nav ul.nav-list li.nav-item a {
         font-size: 16px;
     }
 }

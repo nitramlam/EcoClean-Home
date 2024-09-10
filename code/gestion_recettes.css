@@ -1,0 +1,187 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+/* Formulaire */
+form {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    display: inline-block;
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #2ecc71;
+}
+
+/* Table des recettes */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+table td {
+    background-color: #fff;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+button {
+    padding: 6px 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+a {
+    color: #e74c3c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Messages */
+.message {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Section des ingrédients */
+#ingredients {
+    margin-bottom: 20px;
+}
+
+.ingredient {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ingredient label {
+    width: 120px;
+    font-weight: bold;
+}
+
+.ingredient input, .ingredient select {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Ajustement de la largeur de l'input des unités de mesure */
+.ingredient input[name="unites_mesure[]"] {
+    width: 20px; /* Réduction pour afficher environ 2-3 lettres */
+}
+
+/* Agrandissement léger du select des ingrédients */
+.ingredient select[name="ingredients[]"] {
+    width: auto;
+    min-width: 185px; /* Agrandi légèrement pour mieux afficher les noms d'ingrédients */
+}
+
+button[type="button"] {
+    background-color: #8e44ad;
+}
+
+button[type="button"]:hover {
+    background-color: #9b59b6;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    form, table {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input[type="submit"], button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .ingredient {
+        flex-direction: column;
+    }
+
+    .ingredient input, .ingredient select {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    table th, table td {
+        padding: 8px;
+    }
+
+    form {
+        padding: 15px;
+    }
+}
