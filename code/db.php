@@ -1,7 +1,7 @@
 <?php
 $servername = "mysql-db-v2";  
-$username = "EcoUser33";  
-$password = "CleaningPass!";  
+$username = "NitramEcoClean";  
+$password = "456123Eco!";  
 $dbname = "home_cleaning_recipes";  
 
 $conn = new mysqli($servername, $username, $password, $dbname);
