@@ -1,5 +1,5 @@
 <?php
-include 'header.php'; // Inclure le header
+include 'header.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +8,9 @@ include 'header.php'; // Inclure le header
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoClean-Home</title>
-    <link rel="stylesheet" href="index.css"> <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="index.css">
+ 
+  
 </head>
 <body>
     <div class="container">

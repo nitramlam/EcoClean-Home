@@ -1,27 +1,36 @@
 <?php
-include 'header.php';  // Inclusion du header qui contient la connexion à la BDD
+session_start();
 
-// Variable pour stocker les messages
+// Vérification que l'utilisateur est connecté
+if (!isset($_SESSION['user'])) {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: connexion.php");
+    exit;
+}
+
+include 'header.php'; // Inclusion du header si l'utilisateur est connecté
+
 $message = '';
 
-// Ajouter une recette
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom = $_POST['nom'];
     $description = $_POST['description'];
     $etapes = $_POST['etapes'];
     $categorie_id = $_POST['categorie'];
 
-    // Insertion de la recette
-    $sql = "INSERT INTO recette (nom, description, etapes, categorie_id) VALUES ('$nom', '$description', '$etapes', $categorie_id)";
-    if ($conn->query($sql) === TRUE) {
-        $recette_id = $conn->insert_id;
+    // Utilisation de requêtes préparées pour éviter les injections SQL
+    $stmt = $conn->prepare("INSERT INTO recette (nom, description, etapes, categorie_id) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("sssi", $nom, $description, $etapes, $categorie_id);
+    
+    if ($stmt->execute()) {
+        $recette_id = $stmt->insert_id;
 
-        // Insertion des ingrédients associés à la recette
         foreach ($_POST['ingredients'] as $index => $ingredient_id) {
             $quantite = $_POST['quantites'][$index];
             $unite_mesure = $_POST['unites_mesure'][$index];
-            $sql_recette_ingredient = "INSERT INTO recette_ingredient (recette_id, ingredient_id, quantite, unite_mesure) VALUES ($recette_id, $ingredient_id, $quantite, '$unite_mesure')";
-            $conn->query($sql_recette_ingredient);
+            $stmt_ingredient = $conn->prepare("INSERT INTO recette_ingredient (recette_id, ingredient_id, quantite, unite_mesure) VALUES (?, ?, ?, ?)");
+            $stmt_ingredient->bind_param("iiis", $recette_id, $ingredient_id, $quantite, $unite_mesure);
+            $stmt_ingredient->execute();
         }
 
         $message = "Recette ajoutée avec succès !";
@@ -30,30 +39,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Supprimer une recette
 if (isset($_GET['supprimer_recette'])) {
     $recette_id = $_GET['supprimer_recette'];
-    $sql = "DELETE FROM recette WHERE recette_id = $recette_id";
-    if ($conn->query($sql) === TRUE) {
+
+    $stmt = $conn->prepare("DELETE FROM recette WHERE recette_id = ?");
+    $stmt->bind_param("i", $recette_id);
+
+    if ($stmt->execute()) {
         $message = "Recette supprimée avec succès !";
     } else {
         $message = "Erreur lors de la suppression : " . $conn->error;
     }
 }
 
-// Récupérer toutes les recettes
 $sql_recettes = "SELECT * FROM recette";
 $result_recettes = $conn->query($sql_recettes);
 
-// Récupérer tous les ingrédients
 $sql_ingredients = "SELECT * FROM ingredient";
 $result_ingredients = $conn->query($sql_ingredients);
 
-// Récupérer toutes les catégories
 $sql_categories = "SELECT * FROM categorie";
 $result_categories = $conn->query($sql_categories);
 
-// Gérer les messages
 if (isset($_GET['message']) && $_GET['message'] == 'success') {
     $message = "Recette ajoutée avec succès !";
 } elseif (isset($_GET['message']) && $_GET['message'] == 'deleted') {
@@ -75,7 +82,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'success') {
         <div class="message">
             <?php echo $message; ?>
         </div>
-        <!-- Redirection JavaScript après 2 secondes pour supprimer le message -->
         <script>
             setTimeout(function() {
                 window.location.href = 'gestion_recettes.php';
@@ -92,7 +98,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'success') {
         <label for="description">Description :</label>
         <textarea name="description" required></textarea><br>
 
-        <!-- Sélection de la catégorie -->
         <label for="categorie">Catégorie :</label>
         <select name="categorie" required>
             <?php while ($row = $result_categories->fetch_assoc()) { ?>
@@ -100,7 +105,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'success') {
             <?php } ?>
         </select><br>
 
-        <!-- Étapes de la recette -->
         <label for="etapes">Étapes :</label>
         <textarea name="etapes" required></textarea><br>
 

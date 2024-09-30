@@ -35,6 +35,12 @@ CREATE TABLE IF NOT EXISTS recette_ingredient (
     FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE CASCADE
 );
 
--- Ajouter des catégories de test
+
 INSERT INTO categorie (nom) VALUES ('Cuisine'), ('Salle de bain'), ('WC');
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
 

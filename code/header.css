@@ -1,3 +1,12 @@
+body{
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+
 header {
     background-color: #4CAF50;
     padding: 20px;
@@ -6,15 +15,17 @@ header {
     align-items: center;
     flex-wrap: wrap;
     color: white;
+    width: 80%;
+    margin: 0 auto;
 }
 
-header .site-logo {  /* Changement de site-title à site-logo */
+header .site-logo {  
     font-size: 32px;
     font-weight: bold;
     margin-right: 50px;
 }
 
-header .main-nav ul.nav-list {  /* Changement pour refléter la nouvelle structure */
+header .main-nav ul.nav-list {  
     list-style: none;
     display: flex;
     gap: 20px;
@@ -22,13 +33,13 @@ header .main-nav ul.nav-list {  /* Changement pour refléter la nouvelle structu
     margin: 0;
 }
 
-header .main-nav ul.nav-list li.nav-item a { /* Changement pour les classes nav-list et nav-item */
+header .main-nav ul.nav-list li.nav-item a { 
     color: white;
     text-decoration: none;
     font-size: 18px;
 }
 
-header .main-nav ul.nav-list li.nav-item a:hover {  /* Application du hover */
+header .main-nav ul.nav-list li.nav-item a:hover {  
     text-decoration: underline;
 }
 
@@ -39,12 +50,12 @@ header .main-nav ul.nav-list li.nav-item a:hover {  /* Application du hover */
         text-align: center;
     }
 
-    header .site-logo {  /* Adaptation responsive pour la classe renommée */
+    header .site-logo {  
         margin-right: 0;
         margin-bottom: 10px;
     }
 
-    header .main-nav ul.nav-list { /* Ajustement pour les petites résolutions */
+    header .main-nav ul.nav-list { 
         flex-direction: column;
         gap: 10px;
     }
@@ -52,10 +63,4 @@ header .main-nav ul.nav-list li.nav-item a:hover {  /* Application du hover */
     header .main-nav ul.nav-list li.nav-item a {
         font-size: 16px;
     }
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
 }

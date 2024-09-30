@@ -1,28 +1,44 @@
 <?php
+session_start();
 
+// Vérification que l'utilisateur est connecté
+if (!isset($_SESSION['user'])) {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: connexion.php");
+    exit;
+}
+
+// Si l'utilisateur est connecté, inclure le reste du contenu
 include 'header.php';
 
-// Variable pour stocker les messages
+// Le reste de ton code pour la gestion des ingrédients
 $message = '';
 
-// Ajouter ou modifier un ingrédient
+// Vérification du token CSRF
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Accès refusé. Token CSRF invalide.");
+    }
+
     $nom = $_POST['nom'];
     $description = $_POST['description'];
 
     if (isset($_POST['ingredient_id']) && !empty($_POST['ingredient_id'])) {
-        // Si un ID est passé, on modifie l'ingrédient
         $ingredient_id = $_POST['ingredient_id'];
-        $sql = "UPDATE ingredient SET nom = '$nom', description = '$description' WHERE ingredient_id = $ingredient_id";
-        if ($conn->query($sql) === TRUE) {
+
+        // Requête préparée pour modifier un ingrédient
+        $stmt = $conn->prepare("UPDATE ingredient SET nom = ?, description = ? WHERE ingredient_id = ?");
+        $stmt->bind_param("ssi", $nom, $description, $ingredient_id);
+        if ($stmt->execute()) {
             $message = "Ingrédient modifié avec succès !";
         } else {
             $message = "Erreur lors de la modification : " . $conn->error;
         }
     } else {
-        // Ajouter un nouvel ingrédient
-        $sql = "INSERT INTO ingredient (nom, description) VALUES ('$nom', '$description')";
-        if ($conn->query($sql) === TRUE) {
+        // Requête préparée pour ajouter un nouvel ingrédient
+        $stmt = $conn->prepare("INSERT INTO ingredient (nom, description) VALUES (?, ?)");
+        $stmt->bind_param("ss", $nom, $description);
+        if ($stmt->execute()) {
             $message = "Ingrédient ajouté avec succès !";
         } else {
             $message = "Erreur lors de l'ajout : " . $conn->error;
@@ -30,18 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Supprimer un ingrédient
+// Si une suppression est demandée
 if (isset($_GET['supprimer'])) {
     $ingredient_id = $_GET['supprimer'];
-    $sql = "DELETE FROM ingredient WHERE ingredient_id = $ingredient_id";
-    if ($conn->query($sql) === TRUE) {
+
+    // Requête préparée pour supprimer un ingrédient
+    $stmt = $conn->prepare("DELETE FROM ingredient WHERE ingredient_id = ?");
+    $stmt->bind_param("i", $ingredient_id);
+    if ($stmt->execute()) {
         $message = "Ingrédient supprimé avec succès !";
     } else {
         $message = "Erreur lors de la suppression : " . $conn->error;
     }
 }
 
-// Récupérer tous les ingrédients
 $sql = "SELECT * FROM ingredient";
 $result = $conn->query($sql);
 ?>
@@ -64,12 +82,13 @@ $result = $conn->query($sql);
         <script>
             setTimeout(function() {
                 document.querySelector('.message').style.display = 'none';
-            }, 5000); // Cache le message après 5 secondes
+            }, 5000);
         </script>
     <?php } ?>
 
     <form action="gestion_ingredients.php" method="POST">
         <input type="hidden" name="ingredient_id" value="">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
         <label for="nom">Nom de l'ingrédient :</label>
         <input type="text" name="nom" required><br>
 
@@ -90,12 +109,10 @@ $result = $conn->query($sql);
         </tr>
         <?php while ($row = $result->fetch_assoc()) { ?>
         <tr>
-            <td><?php echo $row['nom']; ?></td>
-            <td><?php echo $row['description']; ?></td>
+            <td><?php echo htmlspecialchars($row['nom']); ?></td>
+            <td><?php echo htmlspecialchars($row['description']); ?></td>
             <td>
-                <button onclick="remplirFormulaire(<?php echo $row['ingredient_id']; ?>, '<?php echo $row['nom']; ?>', '<?php echo $row['description']; ?>')">Modifier</button>
-
-                <!-- Lien pour supprimer -->
+                <button onclick="remplirFormulaire(<?php echo $row['ingredient_id']; ?>, '<?php echo htmlspecialchars($row['nom']); ?>', '<?php echo htmlspecialchars($row['description']); ?>')">Modifier</button>
                 <a href="gestion_ingredients.php?supprimer=<?php echo $row['ingredient_id']; ?>">Supprimer</a>
             </td>
         </tr>
