@@ -5,9 +5,9 @@ services:
     image: mysql:8.0
     container_name: mysql-db-v2
     environment:
-      MYSQL_ROOT_PASSWORD: CleaningPass!
-      MYSQL_USER: EcoUser33
-      MYSQL_PASSWORD: CleaningPass!
+      MYSQL_ROOT_PASSWORD: 456123Eco!
+      MYSQL_USER: NitramEcoClean
+      MYSQL_PASSWORD: 456123Eco!
       MYSQL_DATABASE: home_cleaning_recipes
     ports:
       - "3307:3306"
@@ -20,9 +20,9 @@ services:
     container_name: phpmyadmin-v2
     environment:
       PMA_HOST: mysql-db-v2
-      MYSQL_ROOT_PASSWORD: CleaningPass!
-      MYSQL_USER: EcoUser33
-      MYSQL_PASSWORD: CleaningPass!
+      MYSQL_ROOT_PASSWORD: 456123Eco!
+      MYSQL_USER: NitramEcoClean
+      MYSQL_PASSWORD: 456123Eco!
     ports:
       - "8080:80"
 
